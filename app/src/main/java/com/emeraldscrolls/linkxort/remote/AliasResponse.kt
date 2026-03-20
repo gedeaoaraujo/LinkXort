@@ -1,6 +1,6 @@
 package com.emeraldscrolls.linkxort.remote
 
-data class AliasAndLinksResponse(
+data class AliasResponse(
   val alias: String,
-  val _links: LinksResponse
+  val urls: UrlResponse
 )

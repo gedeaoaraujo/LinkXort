@@ -1,6 +1,6 @@
 package com.emeraldscrolls.linkxort
 
-import com.emeraldscrolls.linkxort.remote.AliasAndLinksResponse
+import com.emeraldscrolls.linkxort.remote.AliasResponse
 import com.emeraldscrolls.linkxort.remote.ILinkService
 import com.emeraldscrolls.linkxort.remote.Link
 import com.emeraldscrolls.linkxort.remote.Result
@@ -13,7 +13,7 @@ class MainRepository(
   private val api: ILinkService
 ) {
 
-  suspend fun shortLink(link: String): Result<AliasAndLinksResponse> {
+  suspend fun shortLink(link: String): Result<AliasResponse> {
     return try {
       val result = api.shortLink(Link(link))
       return if (result.isSuccessful) {
