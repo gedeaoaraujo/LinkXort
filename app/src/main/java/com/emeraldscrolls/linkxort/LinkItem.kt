@@ -15,13 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.emeraldscrolls.linkxort.remote.AliasAndLinksResponse
 
 @Composable
-fun LinkItem(item: String) {
-  val original = item
-  val alias = "123456789"
-  val urlShorted = "https://test.com/123456789"
-
+fun LinkItem(item: AliasAndLinksResponse) {
   Card(
     modifier = Modifier.fillMaxWidth(),
     shape = RoundedCornerShape(12.dp),
@@ -32,7 +29,7 @@ fun LinkItem(item: String) {
     Column(Modifier.padding(16.dp).fillMaxWidth()) {
       Text(
         fontWeight = FontWeight.Bold,
-        text = "Alias: ${alias}",
+        text = "Alias: ${item.alias}",
         style = MaterialTheme.typography.titleSmall,
         color = MaterialTheme.colorScheme.primary,
       )
@@ -40,14 +37,14 @@ fun LinkItem(item: String) {
       Text(
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
-        text = "Original: ${original}",
+        text = "Original: ${item._links.self}",
         style = MaterialTheme.typography.bodyMedium,
         color = MaterialTheme.colorScheme.outline,
       )
       Spacer(modifier = Modifier.height(4.dp))
       Text(
         maxLines = 2,
-        text = urlShorted,
+        text = item._links.short,
         fontWeight = FontWeight.Medium,
         overflow = TextOverflow.Ellipsis,
         style = MaterialTheme.typography.bodySmall,

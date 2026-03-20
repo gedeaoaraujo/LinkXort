@@ -41,12 +41,6 @@ fun HomePage(
 ) {
   var urlText by remember { mutableStateOf("") }
   var showErrorText by remember { mutableStateOf(false) }
-  var list by remember { mutableStateOf<List<String>>(mutableListOf()) }
-
-  val shortLink: (item: String) -> Unit = { item ->
-    list += item
-  }
-  val shortLinkByAlias: (String) -> Unit = {}
 
   fun onSendClicked() {
     val url = urlText
@@ -54,14 +48,14 @@ fun HomePage(
     urlText = ""
 
     if (url.isDigitsOnly()){
-      shortLinkByAlias(url)
+      events.onShortLinkByAlias(url)
       showErrorText = false
       return
     }
 
     val regexUrl = "https?://.+\\..+".toRegex()
     if (regexUrl.matches(url)) {
-      shortLink(url)
+      events.onShortLink(url)
       showErrorText = false
       return
     }
@@ -117,7 +111,7 @@ fun HomePage(
       LazyColumn(
         verticalArrangement = Arrangement.spacedBy(8.dp)
       ) {
-        items(list) { item ->
+        items(state.links.toList()) { item ->
           LinkItem(item)
         }
       }
