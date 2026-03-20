@@ -10,9 +10,9 @@ class InMemoryApi: ILinkService {
   override suspend fun shortLink(link: Link): Response<AliasResponse> {
     val newLink = UrlResponse(
       originalUrl = link.url,
-      apiUrl = "https://testing.com/$id"
+      apiUrl = "https://testing.com/${++id}"
     )
-    val element = AliasResponse(alias = "${++id}", urls = newLink)
+    val element = AliasResponse(alias = "$id", urls = newLink)
     links.add(element)
     return Response.success(element)
   }
