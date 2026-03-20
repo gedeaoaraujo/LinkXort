@@ -1,8 +1,8 @@
 package com.emeraldscrolls.linkxort
 
 import com.emeraldscrolls.linkxort.remote.AliasAndLinksResponse
+import com.emeraldscrolls.linkxort.remote.ILinkService
 import com.emeraldscrolls.linkxort.remote.Link
-import com.emeraldscrolls.linkxort.remote.LinkShortenerApi
 import com.emeraldscrolls.linkxort.remote.Result
 import com.google.gson.JsonSyntaxException
 import okio.IOException
@@ -10,7 +10,7 @@ import retrofit2.HttpException
 import java.net.HttpURLConnection
 
 class MainRepository(
-  private val api: LinkShortenerApi
+  private val api: ILinkService
 ) {
 
   suspend fun shortLink(link: String): Result<AliasAndLinksResponse> {
