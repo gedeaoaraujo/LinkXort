@@ -34,7 +34,11 @@ import androidx.compose.ui.unit.dp
 import androidx.core.text.isDigitsOnly
 
 @Composable
-fun HomePage(modifier: Modifier = Modifier) {
+fun HomePage(
+  modifier: Modifier = Modifier,
+  state: MainState = MainState(),
+  events: MainEvents = MainEvents()
+) {
   var urlText by remember { mutableStateOf("") }
   var showErrorText by remember { mutableStateOf(false) }
   var list by remember { mutableStateOf<List<String>>(mutableListOf()) }
