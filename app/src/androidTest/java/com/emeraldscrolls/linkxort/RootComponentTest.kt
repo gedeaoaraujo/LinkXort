@@ -1,7 +1,9 @@
 package com.emeraldscrolls.linkxort
 
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsNotDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import org.junit.Rule
@@ -14,36 +16,56 @@ class RootComponentTest {
   val composeTestRule = createComposeRule()
 
   @Test
-  fun whenStateHasMessage_dialogShouldShowAndThenClose() {
-    val testAlias = "123456789"
-    val testUrl = "http://test.com"
-    val message  = "The URL of alias $testAlias is: ${testUrl}."
-    var mainState = MainState(message = message)
-    val event = { mainState = mainState.copy(message = "") }
+  fun whenDialogStateIsTrue_dialogShouldBeDisplayed() {
+    val testMessage = "testing"
+    val mainState = MainState(showDialog = true, message = testMessage)
 
     composeTestRule.setContent {
-      RootComponent(
-        state = mainState,
-        events = MainEvents(onClearMessage = event)
-      )
+      RootComponent(state = mainState)
     }
 
     composeTestRule.onNodeWithText("Message").assertIsDisplayed()
-    composeTestRule.onNodeWithText(message).assertIsDisplayed()
+    composeTestRule.onNodeWithText(testMessage).assertIsDisplayed()
     composeTestRule.onNodeWithText("Ok").performClick()
 
-    assert(mainState.message == "")
+    assert(mainState.message == testMessage)
   }
 
   @Test
-  fun whenStateMessageIsEmpty_dialogShouldNotBeVisible() {
-    val emptyState = MainState(message = "")
+  fun whenDialogStateIsFalse_dialogShouldNotBeDisplayed() {
+    val testMessage = "testing"
+    val mainState = MainState(showDialog = false, message = testMessage)
 
     composeTestRule.setContent {
-      RootComponent(state = emptyState)
+      RootComponent(state = mainState)
     }
 
-    composeTestRule.onNodeWithText("Message").assertDoesNotExist()
+    composeTestRule.onNodeWithText("Message").assertIsNotDisplayed()
+    composeTestRule.onNodeWithText(testMessage).assertIsNotDisplayed()
+
+    assert(mainState.message == testMessage)
+  }
+
+  @Test
+  fun whenLoadingIsTrue_progressIndicatorShouldBeDisplayed() {
+    val mainState = MainState(loading = true)
+
+    composeTestRule.setContent {
+      RootComponent(state = mainState)
+    }
+
+    composeTestRule.onNodeWithTag("Loading").assertIsDisplayed()
+  }
+
+  @Test
+  fun whenLoadingIsFalse_progressIndicatorShouldNotBeDisplayed() {
+    val mainState = MainState(loading = false)
+
+    composeTestRule.setContent {
+      RootComponent(state = mainState)
+    }
+
+    composeTestRule.onNodeWithTag("Loading").assertIsNotDisplayed()
   }
 
 }
