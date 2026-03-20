@@ -7,11 +7,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
@@ -21,14 +16,6 @@ fun RootComponent(
   state: MainState = MainState(),
   events: MainEvents = MainEvents()
 ) {
-  var showDialog by remember { mutableStateOf(false) }
-
-  LaunchedEffect(state.message) {
-    if (state.message.isNotBlank()) {
-      showDialog = true
-    }
-  }
-
   HomePage(modifier, state, events)
 
   if (state.loading) {
@@ -39,18 +26,16 @@ fun RootComponent(
     )
   }
 
-  if (showDialog) {
+  if (state.showDialog) {
     AlertDialog(
       title = { Text("Message") },
       onDismissRequest = {
         events.onClearMessage()
-        showDialog = false
       },
       text = { Text(state.message) },
       confirmButton = {
         TextButton(onClick = {
           events.onClearMessage()
-          showDialog = false
         }) { Text("Ok") }
       }
     )

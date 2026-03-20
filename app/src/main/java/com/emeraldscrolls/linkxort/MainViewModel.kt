@@ -25,7 +25,9 @@ class MainViewModel(
   )
 
   fun clearMessage() {
-    _state.update { it.copy(message = "") }
+    _state.update { it.copy(
+      message = "", showDialog = false
+    )}
   }
 
   fun shortLink(link: String) = viewModelScope.launch(ioDispatcher) {
@@ -34,14 +36,20 @@ class MainViewModel(
       is Result.Success -> {
         _state.update {
           val elements = it.links.toTypedArray()
-          it.copy(links = setOf(*elements, response.data))
+          it.copy(
+            loading = false,
+            links = setOf(*elements, response.data)
+          )
         }
       }
       is Result.Error -> {
-        _state.update { it.copy(message = response.message) }
+        _state.update { it.copy(
+          loading = false,
+          showDialog = true,
+          message = response.message
+        )}
       }
     }
-    _state.update { it.copy(loading = false) }
   }
 
   fun shortLinkByAlias(alias: String) = viewModelScope.launch(ioDispatcher) {
@@ -49,13 +57,20 @@ class MainViewModel(
     when (val response = repository.shortLinkyByAlias(alias)){
       is Result.Success -> {
         val msg = "The URL of alias $alias is: ${response.data.url}."
-        _state.update { it.copy(message = msg) }
+        _state.update { it.copy(
+          message = msg,
+          loading = false,
+          showDialog = true
+        )}
       }
       is Result.Error -> {
-        _state.update { it.copy(message = response.message) }
+        _state.update { it.copy(
+          loading = false,
+          showDialog = true,
+          message = response.message
+        )}
       }
     }
-    _state.update { it.copy(loading = false) }
   }
 
 }
