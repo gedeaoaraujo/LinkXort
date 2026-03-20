@@ -23,7 +23,7 @@ import com.emeraldscrolls.linkxort.ui.theme.LinkXortTheme
 
 class MainActivity : ComponentActivity() {
 
-  private val viewModel by lazy { MainViewModel() }
+  private val viewModel: MainViewModel = injectMainVM()
 
   @OptIn(ExperimentalMaterial3Api::class)
   override fun onCreate(savedInstanceState: Bundle?) {

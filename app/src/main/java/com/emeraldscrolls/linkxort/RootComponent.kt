@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun RootComponent(
   modifier: Modifier = Modifier,
-  viewModel: MainViewModel = MainViewModel()
+  viewModel: MainViewModel = injectMainVM()
 ) {
   val state by viewModel.state.collectAsState()
   var showDialog by remember { mutableStateOf(false) }

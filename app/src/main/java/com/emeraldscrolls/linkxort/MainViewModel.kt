@@ -2,7 +2,6 @@ package com.emeraldscrolls.linkxort
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.emeraldscrolls.linkxort.remote.LinkShortenerApi
 import com.emeraldscrolls.linkxort.remote.Result
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -12,7 +11,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class MainViewModel(
-  private val repository: MainRepository = MainRepository(LinkShortenerApi()),
+  private val repository: MainRepository = injectMainRepo(),
   private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ): ViewModel() {
 
