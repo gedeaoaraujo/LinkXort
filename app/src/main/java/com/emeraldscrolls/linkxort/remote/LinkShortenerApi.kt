@@ -4,7 +4,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 
-open class LinkShortenerApi {
+open class LinkShortenerApi: ILinkService {
 
   companion object {
     private const val BASE_URL = "http://localhost:8080"
@@ -17,7 +17,7 @@ open class LinkShortenerApi {
       .build().create<LinkService>()
   }
 
-  suspend fun shortLink(link: Link) = api.shortLink(link)
-  suspend fun shortLinkByAlias(alias: String) = api.shortLinkByAlias(alias)
+  override suspend fun shortLink(link: Link) = api.shortLink(link)
+  override suspend fun shortLinkByAlias(alias: String) = api.shortLinkByAlias(alias)
 
 }
