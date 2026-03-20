@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -20,7 +21,7 @@ fun RootComponent(
 
   if (state.loading) {
     CircularProgressIndicator(
-      modifier = Modifier.width(40.dp),
+      modifier = Modifier.width(40.dp).testTag("Loading"),
       color = MaterialTheme.colorScheme.secondary,
       trackColor = MaterialTheme.colorScheme.surfaceVariant,
     )
