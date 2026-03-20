@@ -8,7 +8,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -19,9 +18,9 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun RootComponent(
   modifier: Modifier = Modifier,
-  viewModel: MainViewModel = injectMainVM()
+  state: MainState = MainState(),
+  events: MainEvents = MainEvents()
 ) {
-  val state by viewModel.state.collectAsState()
   var showDialog by remember { mutableStateOf(false) }
 
   LaunchedEffect(state.message) {
@@ -30,7 +29,7 @@ fun RootComponent(
     }
   }
 
-  HomePage(modifier, state, viewModel.events)
+  HomePage(modifier, state, events)
 
   if (state.loading) {
     CircularProgressIndicator(
@@ -44,13 +43,13 @@ fun RootComponent(
     AlertDialog(
       title = { Text("Message") },
       onDismissRequest = {
-        viewModel.events.onClearMessage()
+        events.onClearMessage()
         showDialog = false
       },
       text = { Text(state.message) },
       confirmButton = {
         TextButton(onClick = {
-          viewModel.events.onClearMessage()
+          events.onClearMessage()
           showDialog = false
         }) { Text("Ok") }
       }

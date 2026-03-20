@@ -16,6 +16,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -55,7 +57,8 @@ class MainActivity : ComponentActivity() {
             modifier = Modifier.padding(innerPadding).fillMaxSize(),
             contentAlignment = Alignment.Center
           ) {
-            RootComponent(viewModel = viewModel)
+            val state by viewModel.state.collectAsState()
+            RootComponent(state = state, events = viewModel.events)
           }
         }
       }
