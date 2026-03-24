@@ -35,10 +35,9 @@ class MainViewModel(
     when (val response = repository.shortLink(link)) {
       is Result.Success -> {
         _state.update {
-          val elements = it.links.toTypedArray()
           it.copy(
             loading = false,
-            links = setOf(*elements, response.data)
+            links = it.links + response.data
           )
         }
       }
