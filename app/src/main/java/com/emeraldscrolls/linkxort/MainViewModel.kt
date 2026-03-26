@@ -3,16 +3,18 @@ package com.emeraldscrolls.linkxort
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.emeraldscrolls.linkxort.remote.Result
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel(
-  private val repository: MainRepository = injectMainRepo(),
-  private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+@HiltViewModel
+class MainViewModel @Inject constructor(
+  private val repository: MainRepository,
+  private val ioDispatcher: CoroutineDispatcher
 ): ViewModel() {
 
   private val _state = MutableStateFlow(MainState())

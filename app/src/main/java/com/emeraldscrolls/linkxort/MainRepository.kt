@@ -8,8 +8,9 @@ import com.google.gson.JsonSyntaxException
 import okio.IOException
 import retrofit2.HttpException
 import java.net.HttpURLConnection
+import javax.inject.Inject
 
-class MainRepository(
+class MainRepository @Inject constructor(
   private val api: ILinkService
 ) {
 

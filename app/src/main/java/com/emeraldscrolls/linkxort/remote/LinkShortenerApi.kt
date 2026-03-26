@@ -3,8 +3,9 @@ package com.emeraldscrolls.linkxort.remote
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
+import javax.inject.Inject
 
-open class LinkShortenerApi: ILinkService {
+open class LinkShortenerApi @Inject constructor(): ILinkService {
 
   companion object {
     private const val BASE_URL = "http://localhost:8080"
