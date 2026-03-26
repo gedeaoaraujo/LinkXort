@@ -1,8 +1,9 @@
 package com.emeraldscrolls.linkxort.remote
 
+import jakarta.inject.Inject
 import retrofit2.Response
 
-class InMemoryApi: ILinkService {
+class InMemoryApi @Inject constructor() : ILinkService {
 
   private var id = 99
   private val links = mutableListOf<AliasResponse>()

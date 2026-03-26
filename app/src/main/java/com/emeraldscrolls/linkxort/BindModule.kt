@@ -1,6 +1,7 @@
 package com.emeraldscrolls.linkxort
 
 import com.emeraldscrolls.linkxort.remote.ILinkService
+import com.emeraldscrolls.linkxort.remote.InMemoryApi
 import com.emeraldscrolls.linkxort.remote.LinkShortenerApi
 import dagger.Binds
 import dagger.Module
@@ -11,5 +12,5 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 abstract class BindModule {
   @Binds
-  abstract fun bindLinkService(api: LinkShortenerApi): ILinkService
+  abstract fun bindLinkService(api: InMemoryApi): ILinkService
 }
