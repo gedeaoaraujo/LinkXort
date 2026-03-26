@@ -1,4 +1,4 @@
-package com.emeraldscrolls.linkxort
+package com.emeraldscrolls.linkxort.components
 
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.AlertDialog
@@ -10,6 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
+import com.emeraldscrolls.linkxort.MainEvents
+import com.emeraldscrolls.linkxort.MainState
 
 @Composable
 fun RootComponent(

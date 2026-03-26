@@ -3,6 +3,7 @@ package com.emeraldscrolls.linkxort
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
+import com.emeraldscrolls.linkxort.components.HomePage
 import com.emeraldscrolls.linkxort.remote.AliasResponse
 import com.emeraldscrolls.linkxort.remote.UrlResponse
 import org.junit.Rule

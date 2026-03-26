@@ -1,4 +1,4 @@
-package com.emeraldscrolls.linkxort
+package com.emeraldscrolls.linkxort.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

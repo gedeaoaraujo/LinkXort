@@ -1,4 +1,4 @@
-package com.emeraldscrolls.linkxort
+package com.emeraldscrolls.linkxort.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -32,6 +32,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.text.isDigitsOnly
+import com.emeraldscrolls.linkxort.MainEvents
+import com.emeraldscrolls.linkxort.MainState
 
 @Composable
 fun HomePage(

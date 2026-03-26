@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.emeraldscrolls.linkxort.components.RootComponent
 import com.emeraldscrolls.linkxort.ui.theme.LinkXortTheme
 import dagger.hilt.android.AndroidEntryPoint
 
