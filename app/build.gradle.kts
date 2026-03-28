@@ -53,19 +53,19 @@ dependencies {
     implementation(libs.androidx.compose.material3)
 
     // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:3.0.0")
-    implementation("com.squareup.retrofit2:converter-gson:3.0.0")
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 
     // Tests
-    testImplementation("junit:junit:4.13.2")
-    testImplementation("io.mockk:mockk:1.13.10")
-    testImplementation("com.google.truth:truth:1.1.5")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
+    testImplementation(libs.junit)
+    testImplementation(libs.mockk)
+    testImplementation(libs.truth)
+    testImplementation(libs.kotlinx.coroutines.test)
 
     // ViewModel + Compose
-    kapt("com.google.dagger:hilt-compiler:2.59.2")
-    implementation("com.google.dagger:hilt-android:2.59.2")
-    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    kapt(libs.hilt.compiler)
+    implementation(libs.hilt.android)
+    implementation(libs.androidx.hilt.navigation.compose)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
