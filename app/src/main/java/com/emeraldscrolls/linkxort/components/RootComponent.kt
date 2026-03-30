@@ -17,7 +17,7 @@ import com.emeraldscrolls.linkxort.MainState
 fun RootComponent(
   modifier: Modifier = Modifier,
   state: MainState = MainState(),
-  onAction: (MainIntent) -> Unit
+  onAction: (MainIntent) -> Unit = {}
 ) {
   HomePage(modifier, state, onAction)
 

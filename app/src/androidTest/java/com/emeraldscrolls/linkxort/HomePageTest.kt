@@ -29,10 +29,15 @@ class HomePageTest {
   fun when_TypingUrl_and_ClickingSend_should_CallShortLink() {
     var calledUrl = ""
     val testUrl = "http://test.com"
-    val events = MainEvents(onShortLink = { calledUrl = it })
+    val onAction = { intent: MainIntent ->
+      when (intent){
+        is MainIntent.ShortLink -> calledUrl = intent.link
+        else -> Unit
+      }
+    }
 
     composeTestRule.setContent {
-      HomePage(events = events)
+      HomePage(onAction = onAction)
     }
 
     composeTestRule.onNodeWithText("").performTextInput(testUrl)
@@ -45,10 +50,15 @@ class HomePageTest {
   fun when_TypingNumbers_and_ClickingSend_should_CallShortLinkByAlias() {
     var calledId = ""
     val testAlias = "12345"
-    val events = MainEvents(onShortLinkByAlias = { calledId = it })
+    val onAction = { intent: MainIntent ->
+      when (intent){
+        is MainIntent.ShortLinkByAlias -> calledId = intent.alias
+        else -> Unit
+      }
+    }
 
     composeTestRule.setContent {
-      HomePage(events = events)
+      HomePage(onAction = onAction)
     }
 
     composeTestRule.onNodeWithText("").performTextInput(testAlias)
@@ -180,17 +190,22 @@ class HomePageTest {
   fun insertUrl_clicksSend_andVerifiesIfItemAppearsInList() {
     val testUrl = "https://test1.com"
     val fakeState = mutableStateOf(MainState())
-    val fakeEvents = MainEvents(onShortLink = { url ->
-      val newItem = AliasResponse(
-        "123", UrlResponse(testUrl, "")
-      )
-      fakeState.value = MainState(links = setOf(newItem))
-    })
+    val onAction = { intent: MainIntent ->
+      when (intent){
+        is MainIntent.ShortLink -> {
+          val newItem = AliasResponse(
+            "123", UrlResponse(testUrl, "")
+          )
+          fakeState.value = MainState(links = setOf(newItem))
+        }
+        else -> Unit
+      }
+    }
 
     composeTestRule.setContent {
       HomePage(
         state = fakeState.value,
-        events = fakeEvents
+        onAction = onAction
       )
     }
 

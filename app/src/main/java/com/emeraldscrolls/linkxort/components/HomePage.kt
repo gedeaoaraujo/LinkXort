@@ -39,7 +39,7 @@ import com.emeraldscrolls.linkxort.MainState
 fun HomePage(
   modifier: Modifier = Modifier,
   state: MainState = MainState(),
-  onAction: (MainIntent) -> Unit
+  onAction: (MainIntent) -> Unit = {}
 ) {
   var urlText by remember { mutableStateOf("") }
   var showErrorText by remember { mutableStateOf(false) }
