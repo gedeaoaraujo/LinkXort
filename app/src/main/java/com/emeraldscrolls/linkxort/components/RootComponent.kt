@@ -10,16 +10,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
-import com.emeraldscrolls.linkxort.MainEvents
+import com.emeraldscrolls.linkxort.MainIntent
 import com.emeraldscrolls.linkxort.MainState
 
 @Composable
 fun RootComponent(
   modifier: Modifier = Modifier,
   state: MainState = MainState(),
-  events: MainEvents = MainEvents()
+  onAction: (MainIntent) -> Unit
 ) {
-  HomePage(modifier, state, events)
+  HomePage(modifier, state, onAction)
 
   if (state.loading) {
     CircularProgressIndicator(
@@ -33,12 +33,12 @@ fun RootComponent(
     AlertDialog(
       title = { Text("Message") },
       onDismissRequest = {
-        events.onClearMessage()
+        onAction(MainIntent.ClearMessage)
       },
       text = { Text(state.message) },
       confirmButton = {
         TextButton(onClick = {
-          events.onClearMessage()
+          onAction(MainIntent.ClearMessage)
         }) { Text("Ok") }
       }
     )

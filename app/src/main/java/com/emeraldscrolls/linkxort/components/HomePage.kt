@@ -32,14 +32,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.text.isDigitsOnly
-import com.emeraldscrolls.linkxort.MainEvents
+import com.emeraldscrolls.linkxort.MainIntent
 import com.emeraldscrolls.linkxort.MainState
 
 @Composable
 fun HomePage(
   modifier: Modifier = Modifier,
   state: MainState = MainState(),
-  events: MainEvents = MainEvents()
+  onAction: (MainIntent) -> Unit
 ) {
   var urlText by remember { mutableStateOf("") }
   var showErrorText by remember { mutableStateOf(false) }
@@ -50,14 +50,14 @@ fun HomePage(
     urlText = ""
 
     if (url.isDigitsOnly()){
-      events.onShortLinkByAlias(url)
+      onAction(MainIntent.ShortLinkByAlias(url))
       showErrorText = false
       return
     }
 
     val regexUrl = "https?://.+\\..+".toRegex()
     if (regexUrl.matches(url)) {
-      events.onShortLink(url)
+      onAction(MainIntent.ShortLink(url))
       showErrorText = false
       return
     }

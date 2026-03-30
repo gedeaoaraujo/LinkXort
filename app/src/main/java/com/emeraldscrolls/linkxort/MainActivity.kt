@@ -62,7 +62,7 @@ class MainActivity : ComponentActivity() {
           ) {
             val viewModel: MainViewModel = hiltViewModel()
             val state by viewModel.state.collectAsState()
-            RootComponent(state = state, events = viewModel.events)
+            RootComponent(state = state, onAction = viewModel::onAction)
           }
         }
       }

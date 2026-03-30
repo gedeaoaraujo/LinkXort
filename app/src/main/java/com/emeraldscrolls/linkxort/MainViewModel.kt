@@ -20,19 +20,21 @@ class MainViewModel @Inject constructor(
   private val _state = MutableStateFlow(MainState())
   val state: StateFlow<MainState> = _state
 
-  val events = MainEvents(
-    onShortLink = ::shortLink,
-    onClearMessage = ::clearMessage,
-    onShortLinkByAlias = ::shortLinkByAlias
-  )
+  fun onAction(intent: MainIntent) {
+    when (intent) {
+      is MainIntent.ClearMessage -> clearMessage()
+      is MainIntent.ShortLink -> shortLink(intent.link)
+      is MainIntent.ShortLinkByAlias -> shortLinkByAlias(intent.alias)
+    }
+  }
 
-  fun clearMessage() {
+  private fun clearMessage() {
     _state.update { it.copy(
       message = "", showDialog = false
     )}
   }
 
-  fun shortLink(link: String) = viewModelScope.launch(ioDispatcher) {
+  private fun shortLink(link: String) = viewModelScope.launch(ioDispatcher) {
     _state.update { it.copy(loading = true) }
     when (val response = repository.shortLink(link)) {
       is Result.Success -> {
@@ -53,7 +55,7 @@ class MainViewModel @Inject constructor(
     }
   }
 
-  fun shortLinkByAlias(alias: String) = viewModelScope.launch(ioDispatcher) {
+  private fun shortLinkByAlias(alias: String) = viewModelScope.launch(ioDispatcher) {
     _state.update { it.copy(loading = true) }
     when (val response = repository.shortLinkyByAlias(alias)){
       is Result.Success -> {
