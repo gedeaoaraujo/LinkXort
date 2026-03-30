@@ -34,7 +34,7 @@ class MainViewModelTest {
       repository.shortLink(linkInput)
     } returns Result.Success(mockResponse)
 
-    viewModel.shortLink(linkInput)
+    viewModel.onAction(MainIntent.ShortLink(linkInput))
 
     val state = viewModel.state.value
     assertTrue(state.links.contains(mockResponse))
@@ -50,7 +50,7 @@ class MainViewModelTest {
       repository.shortLink(linkInput)
     } returns Result.Error(message = errorMessage)
 
-    viewModel.shortLink(linkInput)
+    viewModel.onAction(MainIntent.ShortLink(linkInput))
 
     val state = viewModel.state.value
     assertEquals(errorMessage, state.message)
@@ -65,7 +65,7 @@ class MainViewModelTest {
       repository.shortLinkyByAlias(aliasTest)
     } returns Result.Success(Link(urlTest))
 
-    viewModel.shortLinkByAlias(aliasTest)
+    viewModel.onAction(MainIntent.ShortLinkByAlias(aliasTest))
 
     val state = viewModel.state.value
     val expectedMsg = "The URL of alias $aliasTest is: https://test.com."
@@ -80,10 +80,10 @@ class MainViewModelTest {
       repository.shortLink(urlTest)
     } returns Result.Error(message = "Error")
 
-    viewModel.shortLink(urlTest)
+    viewModel.onAction(MainIntent.ShortLink(urlTest))
     assertNotEquals(urlTest, viewModel.state.value.message)
 
-    viewModel.clearMessage()
+    viewModel.onAction(MainIntent.ClearMessage)
     assertEquals("", viewModel.state.value.message)
   }
 }
